@@ -3,10 +3,12 @@ const $app = document.querySelector("#app");
 const $rec = document.querySelector(".rec");
 const button1 = document.querySelector("#btn1");
 const button2 = document.querySelector("#btn2");
+const button3 = document.querySelector("#btn3");
 
 //set up the speech recognition WebKit
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
+
 const recognition = new SpeechRecognition();
 recognition.lang = 'de-DE';
 recognition.continuous = true;
@@ -47,3 +49,21 @@ recognition.addEventListener("audiostart", (e) => {
 recognition.addEventListener("audioend", (e) => {
   $rec.classList.remove('active')
 });
+
+
+button3.addEventListener("click", (e) => {
+    toggleFullScreen();
+    if(document.fullscreenElement) {
+      button3.textContent = 'Fullscreen'
+    } else {
+      button3.textContent = 'Exit Fullscreen'
+    }
+});
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+}
