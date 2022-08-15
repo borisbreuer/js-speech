@@ -1,5 +1,6 @@
 // grab the texts div tag and the button tags
 const $app = document.querySelector("#app");
+const $rec = document.querySelector(".rec");
 const button1 = document.querySelector("#btn1");
 const button2 = document.querySelector("#btn2");
 
@@ -7,7 +8,9 @@ const button2 = document.querySelector("#btn2");
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
-// recognition.interimResults = true;
+recognition.lang = 'de-DE';
+recognition.continuous = true;
+recognition.interimResults = true;
 
 //creating a new p tag
 let p = document.createElement("p");
@@ -35,4 +38,12 @@ button1.addEventListener("mouseup", (e) => {
 
 button2.addEventListener("click", (e) => {
   p.textContent = '';
+});
+
+recognition.addEventListener("audiostart", (e) => {
+  $rec.classList.add('active')
+});
+
+recognition.addEventListener("audioend", (e) => {
+  $rec.classList.remove('active')
 });
